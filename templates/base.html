@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>HRMS</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family:Arial;
+}
+
+.sidebar{
+
+    width:250px;
+
+    height:100vh;
+
+    background:#1e293b;
+
+    position:fixed;
+
+    left:0;
+
+    top:0;
+
+    padding-top:20px;
+}
+
+.sidebar a{
+
+    display:block;
+
+    color:white;
+
+    text-decoration:none;
+
+    padding:15px;
+
+    margin:5px;
+}
+
+.sidebar a:hover{
+
+    background:#334155;
+}
+
+.content{
+
+    margin-left:260px;
+
+    padding:20px;
+}
+
+.logo{
+
+    color:white;
+
+    text-align:center;
+
+    font-size:24px;
+
+    margin-bottom:30px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<div class="logo">
+
+HRMS
+
+</div>
+
+<a href="/admin-dashboard/">
+
+Dashboard
+
+</a>
+
+<a href="/employee-dashboard/">
+
+Attendance
+
+</a>
+<a href="/attendance-history/">
+
+
+Attendance History
+
+</a>
+
+<a href="/leave/approval/">
+
+Leave Approval
+
+</a>
+<a href="/profile/">
+
+
+My Profile
+
+</a>
+
+<a href="/leave/apply/">
+
+Apply Leave
+
+</a>
+
+<a href="/leave/my-leaves/">
+
+My Leaves
+
+</a>
+
+<a href="/payroll/">
+
+Payroll
+
+</a>
+
+<a href="/admin/">
+
+Admin Panel
+
+</a>
+
+<a href="/">
+
+Logout
+
+</a>
+
+</div>
+
+<div class="content">
+
+{% block content %}
+
+{% endblock %}
+
+</div>
+
+</body>
+
+</html>

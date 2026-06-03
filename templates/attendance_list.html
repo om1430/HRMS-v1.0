@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Attendance</title>
+</head>
+
+<body>
+
+<h1>Attendance Records</h1>
+
+<table border="1">
+
+<tr>
+    <th>Employee</th>
+    <th>Date</th>
+    <th>Check In</th>
+    <th>Check Out</th>
+    <th>Status</th>
+</tr>
+
+{% for record in attendance_records %}
+
+<tr>
+
+<td>{{ record.employee }}</td>
+
+<td>{{ record.date }}</td>
+
+<td>{{ record.check_in }}</td>
+
+<td>{{ record.check_out }}</td>
+
+<td>{{ record.status }}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</body>
+</html>

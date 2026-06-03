@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Attendance History</h1>
+
+<table border="1" cellpadding="10">
+
+<tr>
+
+<th>Date</th>
+
+<th>Check In</th>
+
+<th>Check Out</th>
+
+<th>Latitude</th>
+
+<th>Longitude</th>
+
+<th>Selfie</th>
+
+</tr>
+
+{% for row in records %}
+
+<tr>
+
+<td>
+
+{{ row.date }}
+
+</td>
+
+<td>
+
+{{ row.check_in }}
+
+</td>
+
+<td>
+
+{{ row.check_out }}
+
+</td>
+
+<td>
+
+{{ row.latitude }}
+
+</td>
+
+<td>
+
+{{ row.longitude }}
+
+</td>
+
+<td>
+
+{% if row.selfie %}
+
+<img
+    src="{{ row.selfie.url }}"
+    width="80">
+
+{% endif %}
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+{% endblock %}

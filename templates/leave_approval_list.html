@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Leave Approval Dashboard</h1>
+
+<table border="1" cellpadding="10">
+
+<tr>
+
+<th>Employee</th>
+
+<th>Type</th>
+
+<th>Start</th>
+
+<th>End</th>
+
+<th>Status</th>
+
+<th>Action</th>
+
+</tr>
+
+{% for leave in leaves %}
+
+<tr>
+
+<td>{{ leave.employee.name }}</td>
+
+<td>{{ leave.leave_type }}</td>
+
+<td>{{ leave.start_date }}</td>
+
+<td>{{ leave.end_date }}</td>
+
+<td>{{ leave.status }}</td>
+
+<td>
+
+{% if leave.status == 'Pending' %}
+
+<a href="/leave/approve/{{ leave.id }}/">
+
+Approve
+
+</a>
+
+|
+
+<a href="/leave/reject/{{ leave.id }}/">
+
+Reject
+
+</a>
+
+{% endif %}
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+{% endblock %}

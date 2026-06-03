@@ -1,0 +1,260 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="card">
+
+<h1>Employee Dashboard</h1>
+
+<h3>
+Welcome {{ employee_name }}
+</h3>
+
+<form
+    method="POST"
+    enctype="multipart/form-data">
+
+{% csrf_token %}
+
+<input
+    type="hidden"
+    id="latitude"
+    name="latitude">
+
+<input
+    type="hidden"
+    id="longitude"
+    name="longitude">
+
+<input
+    type="hidden"
+    id="selfie_data"
+    name="selfie_data">
+
+<h3>Mobile Selfie</h3>
+
+<input
+    type="file"
+    name="selfie"
+    accept="image/*"
+    capture="user">
+
+<br><br>
+
+<h3>Laptop Webcam</h3>
+
+<video
+    id="video"
+    width="320"
+    height="240"
+    autoplay
+    style="border:1px solid #ccc;">
+</video>
+
+<br><br>
+
+<button
+    type="button"
+    onclick="capturePhoto()">
+
+    Capture Selfie
+
+</button>
+
+<br><br>
+
+<canvas
+    id="canvas"
+    style="display:none;">
+</canvas>
+
+<img
+    id="preview"
+    width="250"
+    style="display:none;
+           border-radius:10px;">
+
+<hr>
+
+<button
+    type="submit"
+    name="action"
+    value="checkin">
+
+    Check In
+
+</button>
+
+<button
+    type="submit"
+    name="action"
+    value="checkout">
+
+    Check Out
+
+</button>
+
+</form>
+
+<hr>
+
+<h3>
+Status : {{ status }}
+</h3>
+
+<p>
+Check In :
+{{ attendance.check_in }}
+</p>
+
+<p>
+Check Out :
+{{ attendance.check_out }}
+</p>
+
+<p>
+Latitude :
+{{ attendance.latitude }}
+</p>
+
+<p>
+Longitude :
+{{ attendance.longitude }}
+</p>
+
+{% if attendance.selfie %}
+
+<h3>Saved Selfie</h3>
+
+<img
+    src="{{ attendance.selfie.url }}"
+    width="250"
+    style="border-radius:10px;">
+
+{% endif %}
+
+</div>
+
+<style>
+
+.card{
+
+    background:white;
+
+    padding:20px;
+
+    border-radius:10px;
+
+    box-shadow:0px 0px 10px lightgray;
+
+    max-width:800px;
+}
+
+button{
+
+    padding:10px 20px;
+
+    margin:5px;
+
+    cursor:pointer;
+}
+
+</style>
+
+<script>
+
+if(navigator.geolocation){
+
+    navigator.geolocation.getCurrentPosition(
+
+        function(position){
+
+            document.getElementById(
+                "latitude"
+            ).value =
+            position.coords.latitude;
+
+            document.getElementById(
+                "longitude"
+            ).value =
+            position.coords.longitude;
+
+        }
+
+    );
+
+}
+
+navigator.mediaDevices.getUserMedia({
+
+    video:true
+
+})
+
+.then(function(stream){
+
+    document.getElementById(
+        "video"
+    ).srcObject = stream;
+
+})
+
+.catch(function(error){
+
+    console.log(
+        error
+    );
+
+});
+
+function capturePhoto(){
+
+    const video =
+        document.getElementById(
+            "video"
+        );
+
+    const canvas =
+        document.getElementById(
+            "canvas"
+        );
+
+    canvas.width =
+        video.videoWidth;
+
+    canvas.height =
+        video.videoHeight;
+
+    canvas
+        .getContext("2d")
+        .drawImage(
+            video,
+            0,
+            0
+        );
+
+    const imageData =
+        canvas.toDataURL(
+            "image/png"
+        );
+
+    document.getElementById(
+        "selfie_data"
+    ).value = imageData;
+
+    document.getElementById(
+        "preview"
+    ).src = imageData;
+
+    document.getElementById(
+        "preview"
+    ).style.display = "block";
+
+    alert(
+        "Selfie Captured Successfully"
+    );
+}
+
+</script>
+
+{% endblock %}

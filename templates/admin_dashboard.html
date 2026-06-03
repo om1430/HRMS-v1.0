@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>HRMS Admin Dashboard</title>
+
+<style>
+
+body{
+    font-family:Arial;
+    background:#f4f6f9;
+    padding:30px;
+}
+
+.card{
+
+    background:white;
+
+    padding:20px;
+
+    border-radius:10px;
+
+    box-shadow:0px 0px 10px lightgray;
+
+    margin-bottom:20px;
+}
+
+.box{
+
+    display:inline-block;
+
+    width:220px;
+
+    background:white;
+
+    padding:20px;
+
+    margin:10px;
+
+    border-radius:10px;
+
+    box-shadow:0px 0px 10px lightgray;
+
+    text-align:center;
+}
+
+.btn{
+
+    display:block;
+
+    width:250px;
+
+    padding:15px;
+
+    background:#007bff;
+
+    color:white;
+
+    text-decoration:none;
+
+    margin:10px 0;
+
+    border-radius:5px;
+
+    text-align:center;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>HRMS Admin Dashboard</h1>
+
+<div class="box">
+
+<h3>Total Employees</h3>
+
+<h2>{{ total_employees }}</h2>
+
+</div>
+
+<div class="box">
+
+<h3>Present Today</h3>
+
+<h2>{{ present_today }}</h2>
+
+</div>
+
+<div class="box">
+
+<h3>Pending Leaves</h3>
+
+<h2>{{ pending_leaves }}</h2>
+
+</div>
+
+<br><br>
+
+<a
+    href="/admin/"
+    class="btn">
+
+    Employee Management
+
+</a>
+
+<a
+    href="/attendance/"
+    class="btn">
+
+    Attendance
+
+</a>
+
+<a
+    href="/leave/my-leaves/"
+    class="btn">
+
+    Leave Management
+
+</a>
+
+<a
+    href="/payroll/"
+    class="btn">
+
+    Payroll
+
+</a>
+
+</body>
+
+</html>
