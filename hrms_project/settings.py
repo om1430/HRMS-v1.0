@@ -25,8 +25,7 @@ SECRET_KEY = 'django-insecure-18pn2zpb06ox=b7cv0uv2v4p2j3onem@b(a^6_greiy4p#4cpa
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -42,7 +41,7 @@ INSTALLED_APPS = [
     'accounts',
     'attendance',
     'leave_management',
-    'payroll',
+    'payroll',  
 ]
 
 MIDDLEWARE = [
