@@ -21,6 +21,8 @@ class Attendance(models.Model):
         blank=True
     )
 
+    # Check In
+
     latitude = models.CharField(
         max_length=100,
         null=True,
@@ -33,8 +35,40 @@ class Attendance(models.Model):
         blank=True
     )
 
+    location_name = models.CharField(
+        max_length=500,
+        null=True,
+        blank=True
+    )
+
     selfie = models.ImageField(
         upload_to='attendance_selfies/',
+        null=True,
+        blank=True
+    )
+
+    # Check Out
+
+    checkout_latitude = models.CharField(
+        max_length=100,
+        null=True,
+        blank=True
+    )
+
+    checkout_longitude = models.CharField(
+        max_length=100,
+        null=True,
+        blank=True
+    )
+
+    checkout_location_name = models.CharField(
+        max_length=500,
+        null=True,
+        blank=True
+    )
+
+    checkout_selfie = models.ImageField(
+        upload_to='checkout_selfies/',
         null=True,
         blank=True
     )

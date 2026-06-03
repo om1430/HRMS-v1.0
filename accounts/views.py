@@ -8,7 +8,7 @@ from attendance.models import Attendance
 
 import base64
 from django.core.files.base import ContentFile
-
+import requests
 
 def login_view(request):
 
@@ -91,7 +91,45 @@ def admin_dashboard(request):
         'admin_dashboard.html',
         context
     )
+def get_location_name(latitude, longitude):
 
+    try:
+
+        url = (
+            "https://nominatim.openstreetmap.org/reverse"
+        )
+
+        params = {
+
+            "lat": latitude,
+
+            "lon": longitude,
+
+            "format": "json"
+
+        }
+
+        headers = {
+
+            "User-Agent": "HRMS"
+        }
+
+        response = requests.get(
+            url,
+            params=params,
+            headers=headers
+        )
+
+        data = response.json()
+
+        return data.get(
+            "display_name",
+            ""
+        )
+
+    except:
+
+        return ""
 
 @login_required
 def employee_dashboard(request):
@@ -115,6 +153,12 @@ def employee_dashboard(request):
 
         longitude = request.POST.get('longitude')
 
+        location_name = request.POST.get('location_name')
+
+        print("Latitude =", latitude)
+        print("Longitude =", longitude)
+        print("Location =", location_name)
+
         selfie = request.FILES.get('selfie')
 
         selfie_data = request.POST.get(
@@ -130,6 +174,8 @@ def employee_dashboard(request):
             attendance.latitude = latitude
 
             attendance.longitude = longitude
+
+            attendance.location_name = (location_name)
 
             # Mobile Camera Upload
             if selfie:
@@ -171,6 +217,53 @@ def employee_dashboard(request):
             if attendance.check_in and not attendance.check_out:
 
                 attendance.check_out = timezone.now()
+
+                attendance.checkout_latitude = latitude
+
+                attendance.checkout_longitude = longitude
+
+                attendance.checkout_location_name = location_name
+
+                # Mobile Selfie
+
+                if selfie:
+
+                    attendance.checkout_selfie = selfie
+
+                # Laptop Webcam Selfie
+
+                elif selfie_data:
+
+                    try:
+
+                        format, imgstr = selfie_data.split(
+                            ';base64,'
+                        )
+
+                        ext = format.split('/')[-1]
+
+                        file_name = (
+                            f"checkout_{employee.id}_{today}.{ext}"
+                        )
+
+                        attendance.checkout_selfie.save(
+
+                            file_name,
+
+                            ContentFile(
+                                base64.b64decode(imgstr)
+                            ),
+
+                            save=False
+
+                        )
+
+                    except Exception as e:
+
+                        print(
+                            "Checkout Selfie Error:",
+                            e
+                        )
 
         attendance.save()
 
